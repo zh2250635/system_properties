@@ -48,7 +48,7 @@ prop_info::prop_info(const char* name, uint32_t namelen, uint32_t long_offset) {
   this->name[namelen] = '\0';
 
   auto error_value_len = sizeof(kLongLegacyError) - 1;
-  atomic_store_explicit(&this->serial, error_value_len << 24 | kLongFlag, memory_order_relaxed);
+  atomic_store_explicit(&this->serial, (uint32_t)(error_value_len << 24 | kLongFlag), memory_order_relaxed);
   memcpy(this->long_property.error_message, kLongLegacyError, sizeof(kLongLegacyError));
 
   this->long_property.offset = long_offset;
